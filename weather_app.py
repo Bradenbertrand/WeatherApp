@@ -8,20 +8,22 @@ WIDTH = 600
 # 8f8793b76b65834fefbb7567e11bae7c
 # api.openweathermap.org/data/2.5/forecast?q={city name},{country code}
 
-def format_response(city_name, city_description, city_temp):
-    city_name = weather['name']
-    city_description = weather['weather'][0]['description']
-    city_temp = weather['main']['temp']
-
+def format_response(weather):
+    try:
+        city_name = weather['name']
+        city_description = weather['weather'][0]['description']
+        city_temp = weather['main']['temp']
+        return city_name + " " + city_description + " " + str(city_temp)
+    except:
+        print("This city is invalid")
 
 def get_weather(city):
     weather_key = '8f8793b76b65834fefbb7567e11bae7c'
     url = 'https://api.openweathermap.org/data/2.5/weather'
     params = {'APPID': weather_key, 'q': city, 'units': 'metric'}
     response = requests.get(url, params=params)
-    weather = response.json
-
-    label['text'] = format_response(city_name, city_description, city_temp)
+    weather = response.json()
+    label['text'] = format_response(weather)
 
 root = tk.Tk()
 
