@@ -16,6 +16,13 @@ def format_response(weather):
         return city_name + " " + city_description + " " + str(city_temp)
         
 
+    try:
+        city_name = weather['name']
+        city_description = weather['weather'][0]['description']
+        city_temp = weather['main']['temp']
+        return city_name + " " + city_description + " " + str(city_temp)
+    except:
+        print("This city is invalid")
 
 def get_weather(city):
     weather_key = '8f8793b76b65834fefbb7567e11bae7c'
